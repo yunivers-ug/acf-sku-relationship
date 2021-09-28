@@ -98,8 +98,8 @@ class acf_field_sku_relationship extends acf_field
 
         // sku exists
         $args['meta_key'] = '_sku';
-        $args['meta_value'] = false;
-        $args['meta_compare'] = '!=';
+        $args['meta_value'] = 'DE';
+        $args['meta_compare'] = 'LIKE';
 
         // paged
         $args['posts_per_page'] = 20;
@@ -194,7 +194,7 @@ class acf_field_sku_relationship extends acf_field
                 foreach (array_keys($posts) as $post_id) {
 
                     // override data
-                    $posts[ $post_id ] = $this->get_post_title($posts[ $post_id ], $field, $options['post_id']);
+                    $posts[ $post_id ] = $this->get_post_title($posts[ $post_id ], $field, $options['post_id']) . " (" . $this->get_wc_sku($post_id) . ")";
                 };
 
 
@@ -270,6 +270,11 @@ class acf_field_sku_relationship extends acf_field
         die();
     }
 
+    public function get_wc_sku($post_id) {
+        $p = wc_get_product($post_id);
+        if(!$p) return null;
+        return $p->get_sku();
+    }
 
     /*
     *  get_post_title

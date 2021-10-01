@@ -577,7 +577,7 @@ class acf_field_sku_relationship extends acf_field
                             $post = acf_extract_var($posts, $i); ?><li>
                                 <input type="hidden" name="<?php echo $field['name']; ?>[]" value="<?php echo $post->ID; ?>" />
                                 <span data-id="<?php echo $post->ID; ?>" class="acf-rel-item">
-                                    <?php echo $this->get_post_title($post, $field); ?>
+                                    <?php echo $this->get_post_title($post->ID, $field) . " (" . $this->get_wc_sku($post->ID) . ")"; ?>
                                     <a href="#" class="acf-icon small dark" data-name="remove_item"><i class="acf-sprite-remove"></i></a>
                                 </span>
                             </li><?php
